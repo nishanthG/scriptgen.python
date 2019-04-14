@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [MST0001]">
+  <parameter name="DeviceModel" value="SM-G610F"/>
+  <parameter name="executionTestScenario_TestScenarioReference" value="NSE_TestAutomation_150"/>
+  <parameter name="NodeMachineIP" value="192.168.10.127"/>
+  <parameter name="executionTestScenario_Description" value="ExecutionTestScenario_345: Verify placing of order providing details as per below criteria:
+A= Trans type = Buy
+B = Exch = NSE
+C= Product Code =NRML
+D=Order Type= Market                                                                                 E= Validity = Day
+ F=Market 
+An unique order number should be generated,it should be in open state and then modify that order and see whether it gets fully trade
+  "/>
+  <parameter name="testPlan_Reference" value="TestPlan_143"/>
+  <parameter name="deviceName" value="0a766af5"/>
+  <parameter name="DeviceOS" value="Android"/>
+  <parameter name="DeviceType" value="Real"/>
+  <parameter name="executionMasterTestSuite_MasterTestSuiteReference" value="MST0001"/>
+  <parameter name="executionTestSuite_Reference" value="ExecutionTestSuite_143"/>
+  <parameter name="DeviceManufacturer" value="samsung"/>
+  <parameter name="executionTestScenario_Reference" value="ExecutionTestScenario_345"/>
+  <parameter name="OSVersion" value="6.0.1"/>
+  <parameter name="executionTestSuite_TestSuiteReference" value="TestSuite1001"/>
+  <parameter name="executionMasterTestSuite_Reference" value="ExecutionMasterTestSuite_143"/>
+  <parameter name="udidAsPerADB" value="0a766af5"/>
+  <test name="NSE_TestAutomation_150(failed)">
+    <parameter name="DeviceModel" value="SM-G610F"/>
+    <parameter name="executionTestScenario_TestScenarioReference" value="NSE_TestAutomation_150"/>
+    <parameter name="NodeMachineIP" value="192.168.10.127"/>
+    <parameter name="executionTestScenario_Description" value="ExecutionTestScenario_345: Verify placing of order providing details as per below criteria:
+A= Trans type = Buy
+B = Exch = NSE
+C= Product Code =NRML
+D=Order Type= Market                                                                                 E= Validity = Day
+ F=Market 
+An unique order number should be generated,it should be in open state and then modify that order and see whether it gets fully trade
+  "/>
+    <parameter name="testPlan_Reference" value="TestPlan_143"/>
+    <parameter name="deviceName" value="0a766af5"/>
+    <parameter name="DeviceOS" value="Android"/>
+    <parameter name="DeviceType" value="Real"/>
+    <parameter name="executionMasterTestSuite_MasterTestSuiteReference" value="MST0001"/>
+    <parameter name="executionTestSuite_Reference" value="ExecutionTestSuite_143"/>
+    <parameter name="DeviceManufacturer" value="samsung"/>
+    <parameter name="executionTestScenario_Reference" value="ExecutionTestScenario_345"/>
+    <parameter name="OSVersion" value="6.0.1"/>
+    <parameter name="executionTestSuite_TestSuiteReference" value="TestSuite1001"/>
+    <parameter name="executionMasterTestSuite_Reference" value="ExecutionMasterTestSuite_143"/>
+    <parameter name="udidAsPerADB" value="0a766af5"/>
+    <classes>
+      <class name="com.aqm.tests.AutomationDriverScript">
+        <methods>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.aqm.tests.AutomationDriverScript -->
+    </classes>
+  </test> <!-- NSE_TestAutomation_150(failed) -->
+</suite> <!-- Failed suite [MST0001] -->

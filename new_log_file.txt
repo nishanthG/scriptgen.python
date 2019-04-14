@@ -1,0 +1,27 @@
+#SCENARIO: a
+#STEP: a
+#LOG(android.widget.Button): Clicked on element with text : '7'
+#LOG(android.widget.Button): Clicked on element with text : 'ADD TIMESHEET'
+#LOG(android.widget.Button): Clicked on element with text : 'RESET'
+#LOG(android.view.View): Clicked on element with Text : 'Select Daystatus'
+#LOG(android.widget.RadioButton): Clicked on element with text : 'Absent'
+#LOG(android.widget.Button): Clicked on element with text : 'OK'
+#LOG(android.view.View): Clicked on element with Text : 'Select Client'
+#LOG(android.widget.RadioButton): Clicked on element with text : 'Aditya Birla'
+#LOG(android.widget.Button): Clicked on element with text : 'OK'
+#STEP: b
+#LOG(android.view.View): Clicked on element with Text : 'Select Project'
+#LOG(android.widget.RadioButton): Clicked on element with text : 'Aditya Birla New'
+#LOG(android.widget.Button): Clicked on element with text : 'OK'
+#STEP: v
+#LOG(android.view.View): Clicked on element with Text : 'Select Module'
+#LOG(android.widget.RadioButton): Clicked on element with text : 'NSE Now 2.0 - General'
+#LOG(android.widget.Button): Clicked on element with text : 'OK'
+#STEP: f
+#LOG(android.view.View): Clicked on element with Text : 'Select Taskgroup'
+#LOG(android.widget.RadioButton): Clicked on element with text : 'Manual Testing'
+#LOG(android.widget.Button): Clicked on element with text : 'OK'
+#STEP: s
+#LOG(android.view.View): Clicked on element with Text : 'Select Task'
+#LOG(android.widget.RadioButton): Clicked on element with text : 'Manual'
+#LOG(android.widget.Button): Clicked on element with text : 'OK'
