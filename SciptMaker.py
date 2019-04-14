@@ -13,8 +13,9 @@ class ScriptMaker(object):
 
 	utility_function = """def pick_value(file_name, column_name):
 \tdf = pd.read_excel(file_name, index_col=0)
-\tassert len(df[column_name].tolist())!=0
-\treturn df[column_name].tolist()[0]\n"""
+\tcolumn=df[column_name].tolist()
+\tassert len(column)!=0
+\treturn column[0]\n"""
 	
 	dump = 'try:\n\tvc.dump(window = -1)\nexcept Exception as e:\n\tpass\n'
 

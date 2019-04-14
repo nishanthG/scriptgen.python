@@ -11,7 +11,7 @@ lines = []
 indexes = []
 logs = []
 
-GUI_list = [('3','7'),{'ADD TIMESHEET':'/media/gn/Work/AQM/PY_RepV2.0/logsample.xlsx'},None,None,('HalfDayWorking','Absent'),None,None,('National Stock Exchange of India','Aditya Birla'),None,None,('NSE Now 2.0','Aditya Birla New'),None,None,None,None,None,('Automation Testing','Manual Testing'),None,None,('Test Script Creation','Manual'),None]
+GUI_list = [('3','7'),{'ADD TIMESHEET':['/media/gn/Work/AQM/PY_RepV2.0/logsample.xlsx','Petal_width']},None,None,('HalfDayWorking','Absent'),None,None,('National Stock Exchange of India','Aditya Birla'),None,None,('NSE Now 2.0','Aditya Birla New'),None,None,None,None,None,('Automation Testing','Manual Testing'),None,None,('Test Script Creation','Manual'),None]
 
 class Parameterise(object):
 	"""docstring for Parameterise"""
@@ -41,7 +41,7 @@ class Parameterise(object):
 				logs[i]=logs[i].replace(v[0],v[1])
 			elif v!= None and type(v)==dict:
 				key = list(v.keys())[0]
-				log='\tvalue = pick_value("{file_path}")\n'.format(file_path=v[key])
+				log="\tvalue = pick_value('{file_path}','{column_name}')\n".format(file_path=v[key][0],column_name=v[key][1])
 				logs[i]=log+logs[i].replace(key,'value').replace("'", '')
 
 		assert len(indexes)==len(logs)
