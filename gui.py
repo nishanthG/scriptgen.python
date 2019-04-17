@@ -54,17 +54,21 @@ class Cmd_New_2(object):
 		global sheet_name
 		global range_from
 		global range_to
-		global filename
+		global filename_
 
 		if self.entry_list[row].get() == '':					
 			filename = tkFileDialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.txt"),("all files","*.*")))
+			# filename.encode('ascii','ignore')
+			# filename_1=filename.split("/")[4].strip()
+			filename_=self.copy_file(filename)
 
 			if not filename:
 				pass
 			else:
 				window_= Tkinter.Tk()
-				window_.resizable(width=False,height=False);
-				window_.geometry("350x100")
+				window_.resizable(width=
+					False,height=False);
+				window_.geometry("350x120")
 				l1= Label(window_, text="Column Name :")
 				l1.place(x=20,y=0)
 				column_name=Entry(window_, width = 30)
@@ -75,14 +79,18 @@ class Cmd_New_2(object):
 				sheet_name.place(x=150,y=30)
 				l3= Label(window_, text="Range of data:")
 				l3.place(x=20,y=60)
-				range_from=Entry(window_)
+				range_from=Entry(window_,width=12)
 				range_from.place(x=150,y=60)
-				l4 = Label(window_, text="to")
-				l4.place(x=200,y=60)
-				range_to = Entry(window_,width=1)
-				range_to.place(x=220,y=60)
+				l4 = Label(window_, text="to",width=6)
+				l4.place(x=220,y=60)
+
+				range_to = Entry(window_,width=12)
+				range_to.place(x=260,y=60)
+
+				# l5=Label(window_,width=10)
+				# l5.place(x=275,y=60)
 				b1=Button(window_,text="OK",width=8,command=self.file_info)
-				b1.place(x=275,y=58)
+				b1.place(x=150,y=90)
 				window_.mainloop()
 		else:
 			tkMessageBox.showinfo("Warning", "Provide only one value")
@@ -108,7 +116,7 @@ class Cmd_New_2(object):
 
 	def file_info(self):
 		rangelist=[int(range_from.get()),int(range_to.get())]
-		info_list=[filename.encode('ascii','ignore'),sheet_name.get(),column_name.get(),rangelist]
+		info_list=[filename_.encode('ascii','ignore'),sheet_name.get(),column_name.get(),rangelist]
 		self.files[row]=info_list
 		print self.files
 		window_.destroy()
@@ -159,6 +167,15 @@ class Cmd_New_2(object):
 		widget = Label(frame,width=25,text="Desired Data",font='times 10 bold')
 		# self.widgets.append(widget)
 		widget.pack(side="right")
+
+	def copy_file(self, file_path):
+		import shutil, os
+		cudir=os.getcwd()
+		file=file_path.split("/")[-1]
+		# file, extension = os.path.splitext(file_path)
+		destination = cudir+"/"+file+'.bak'
+		shutil.copy2(file_path, destination)
+		return file+'.bak'
 
 	def Generate_Script(self):
 		for index, value in enumerate(self.entry_list):
