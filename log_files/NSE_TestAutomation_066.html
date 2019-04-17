@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>TestNG:  NSE_TestAutomation_066</title>
+<link href="../testng.css" rel="stylesheet" type="text/css" />
+<link href="../my-testng.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.log { display: none;} 
+.stack-trace { display: none;} 
+</style>
+<script type="text/javascript">
+<!--
+function flip(e) {
+  current = e.style.display;
+  if (current == 'block') {
+    e.style.display = 'none';
+    return 0;
+  }
+  else {
+    e.style.display = 'block';
+    return 1;
+  }
+}
+
+function toggleBox(szDivId, elem, msg1, msg2)
+{
+  var res = -1;  if (document.getElementById) {
+    res = flip(document.getElementById(szDivId));
+  }
+  else if (document.all) {
+    // this is the way old msie versions work
+    res = flip(document.all[szDivId]);
+  }
+  if(elem) {
+    if(res == 0) elem.innerHTML = msg1; else elem.innerHTML = msg2;
+  }
+
+}
+
+function toggleAllBoxes() {
+  if (document.getElementsByTagName) {
+    d = document.getElementsByTagName('div');
+    for (i = 0; i < d.length; i++) {
+      if (d[i].className == 'log') {
+        flip(d[i]);
+      }
+    }
+  }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+<h2 align='center'>NSE_TestAutomation_066</h2><table border='1' align="center">
+<tr>
+<td>Tests passed/Failed/Skipped:</td><td>1/0/0</td>
+</tr><tr>
+<td>Started on:</td><td>Mon Mar 11 15:53:23 IST 2019</td>
+</tr>
+<tr><td>Total time:</td><td>145 seconds (145274 ms)</td>
+</tr><tr>
+</table><p/>
+<small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.aqm.tests.AutomationDriverScript.scriptExecutioner()'><b>scriptExecutioner</b><br>Test class: com.aqm.tests.AutomationDriverScript<br>Parameters: 192.168.10.127, 0a766af5, 0a766af5, samsung, SM-G610F, Android, 6.0.1, Real, TestPlan_20, ExecutionMasterTestSuite_20, MST0001, ExecutionTestSuite_20, TestSuite1001, ExecutionTestScenario_20, NSE_TestAutomation_066, ExecutionTestScenario_20: Verify placing of order providing details as per below criteria:
+A= Trans type = Sell
+B = Exch = NSE
+C= Product Code =MIS
+D=Order Type= Limit                                                                           E= Validity = Day F=Limit Price= 0    
+It should give a validation"Please enter valid price ".<br/>
+<a href="#Output-308803634" onClick='toggleBox("Output-308803634", this, "Show output", "Hide output");'>Show output</a>
+
+<a href="#Output-308803634" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-308803634">
+<B><u>StepNumber-</u>1<i><Font Color = /'#00008B/'> Executing : CreateLogin </Font></i></B><br/>
+Clicked on : Menu Icon<br/>
+Clicked on : Logout<br/>
+Cleared and Typed Value: 'B3' in Member Id<br/>
+Cleared and Typed Value: 'INV1' in Login Id<br/>
+Clicked on : Validate<br/>
+Cleared and Typed Value: 'Nse@123' in Password<br/>
+Checked  Image<br/>
+Clicked on : Validate Password<br/>
+Cleared and Typed Value: 'a' in First Answer<br/>
+Cleared and Typed Value: 'a' in Second Answer<br/>
+Clicked on : Submit<br/>
+<B><u>StepNumber-</u>2<i><Font Color = /'#00008B/'> Executing : CreateHomePage </Font></i></B><br/>
+Clicked on : Search <br/>
+<B><u>StepNumber-</u>3<i><Font Color = /'#00008B/'> Executing : CreateSearch </Font></i></B><br/>
+Clicked on : Exchange DropDown DropDown<br/>
+Clicked on : Exchange<br/>
+Clicked on : Instrument<br/>
+Clicked on : Instrument<br/>
+Cleared and Typed Value: 'NIACL' in Search Symbol<br/>
+Clicked on : Trail<br/>
+<B><u>StepNumber-</u>4<i><Font Color = /'#00008B/'> Executing : CreatePlaceOrder </Font></i></B><br/>
+Clicked on : sellTab<br/>
+Cleared and Typed Value: '1' in Quantity<br/>
+Cleared and Typed Value: '.00' in Limit price<br/>
+Clicked on : Order type<br/>
+Clicked on : LIMIT<br/>
+Clicked on : Product Type DropDown<br/>
+Clicked on : Product Type<br/>
+Clicked on : More Fields<br/>
+Clicked on : Validity DropDown<br/>
+Clicked on : Validity Type<br/>
+Clicked on : Submit Button<br/>
+<B><u>StepNumber-</u>5<i><Font Color = /'#00008B/'> Executing : VerifyPlaceOrder </Font></i></B><br/>
+Fetched text: Please enter valid price! of Please enter valid price!<br/>
+<B><Font Color = "white">2.  Actual= Please enter valid price!;  Expected= Please enter valid price! ; PASSED </Font> </B><br/>
+Clicked on : OK<br/>
+<h3><B>Scenario ID: NSE_TestAutomation_066 Execution Completed in 2 minutes 21 seconds</h3></B><br/>
+<Br> <B>[ScenarioID:::NSE_TestAutomation_066-->PASSED]</B></Br><br/>
+</div>
+</td>
+<td></td>
+<td>145</td>
+<td>com.aqm.tests.AutomationDriverScript@1f7076bc</td></tr>
+</table><p>
+</body>
+</html>
