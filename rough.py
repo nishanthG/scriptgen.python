@@ -9,19 +9,32 @@ lines = []
 indexes = []
 logs = []
 
-GUI_list = [('3','7'),None,None,None,('HalfDayWorking','Absent'),None,None,('National Stock Exchange of India','Aditya Birla'),None,None,('NSE Now 2.0','Aditya Birla New'),None,None,None,None,None,('Automation Testing','Manual Testing'),None,None,('Test Script Creation','Manual'),None]
+GUI_list = [('3','7'),{'ADD TIMESHEET':['/media/gn/Work/AQM/PY_RepV2.0/logsample.xlsx','Data','Petal_width',[0,5]]},None,None,('HalfDayWorking','Absent'),None,None,('National Stock Exchange of India','Aditya Birla'),None,None,('NSE Now 2.0','Aditya Birla New'),None,None,None,None,None,('Automation Testing','Manual Testing'),None,None,('Test Script Creation','Manual'),None]
 
 class Parameterise(object):
 	"""docstring for Parameterise"""
 	def __init__(self):
 		super(Parameterise, self).__init__()
 
-	def read_value(self,file_name, column_name):
+	def read_value(self,file_name, sheet_name, column_name, data_range):
 		import pandas as pd
-		df = pd.read_excel(file_name, index_col=0)
-		assert len(df[column_name].tolist())!=0
-		return df[column_name].tolist()[0]
+		try:
+			df = pd.read_excel(file_name, index_col=0, sheetname=sheet_name)
+			column=df[column_name][data_range[0]:data_range[1]+1].tolist()
+			assert len(column)!=0
+			print(column)
+			return column[0]
+		except Exception as e:
+			print(str(e))
 		
+	def copy_file(self, file_path):
+		import shutil, os
+		curdir = os.getcwd()
+		file = file_path.split('/')[-1]
+		destination = curdir+"/"+file +'.bak'
+		shutil.copy2(file_path, destination)
+		return file +'.bak'
+
 	def read_file(self,file_name, keyword, new_filename):
 		with open(file_name, 'r') as file:
 			global lines
@@ -64,7 +77,8 @@ class Parameterise(object):
 if __name__ == '__main__':
 	file_excel = '/media/gn/Work/AQM/PY_RepV2.0/Iris.xls'
 	obj = Parameterise()
-	obj.read_value(file_excel,'Petal_width')
+	# obj.read_value(file_excel,'Data','Petal_width',[0,5])
+	obj.copy_file(file_excel)
 	# obj.read_file(script_file_name, script_keyword, script_new_filename)
 	# # obj.clear_cache()
 	# obj.read_file(log_file_name, log_keyword, log_new_filename)

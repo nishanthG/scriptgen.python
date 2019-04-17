@@ -11,7 +11,8 @@ lines = []
 indexes = []
 logs = []
 
-GUI_list = [('3','7'),{'ADD TIMESHEET':['/media/gn/Work/AQM/PY_RepV2.0/logsample.xlsx','Petal_width']},None,None,('HalfDayWorking','Absent'),None,None,('National Stock Exchange of India','Aditya Birla'),None,None,('NSE Now 2.0','Aditya Birla New'),None,None,None,None,None,('Automation Testing','Manual Testing'),None,None,('Test Script Creation','Manual'),None]
+GUI_list = [('3','7'),{'ADD TIMESHEET':['/media/gn/Work/AQM/PY_RepV2.0/Iris.xls','Data','Petal_width',[0,5]]},None,None,('HalfDayWorking','Absent'),None,None,('National Stock Exchange of India','Aditya Birla'),None,None,('NSE Now 2.0','Aditya Birla New'),None,None,None,None,None,('Automation Testing','Manual Testing'),None,None,('Test Script Creation','Manual'),None]
+# GUI_list = [('3','7'),None,None,None,('HalfDayWorking','Absent'),None,None,('National Stock Exchange of India','Aditya Birla'),None,None,('NSE Now 2.0','Aditya Birla New'),None,None,None,None,None,('Automation Testing','Manual Testing'),None,None,('Test Script Creation','Manual'),None]
 
 class Parameterise(object):
 	"""docstring for Parameterise"""
@@ -32,7 +33,26 @@ class Parameterise(object):
 				indexes.append(index)
 				logs.append(log)
 		
-		self.replace_values(new_filename)
+		import os
+		file, extension = os.path.splitext(new_filename)
+
+		if 'txt' in extension:
+			self.replace_value(new_filename)
+		else:
+			self.replace_values(new_filename)
+
+	def replace_value(self, new_filename):
+		assert len(indexes)==len(GUI_list)
+		for i,v in enumerate(GUI_list):
+			if v!= None and type(v)==tuple:
+				logs[i]=logs[i].replace(v[0],v[1])
+			elif v!= None and type(v)==dict:
+				key = list(v.keys())[0]
+				value = self.fetch_value_from_file(v[key][0],v[key][1],v[key][2],v[key][3])
+				logs[i]=logs[i].replace(key,str(value))
+
+		assert len(indexes)==len(logs)
+		self.rebuild_file(new_filename)
 
 	def replace_values(self, new_filename):
 		assert len(indexes)==len(GUI_list)
@@ -41,7 +61,7 @@ class Parameterise(object):
 				logs[i]=logs[i].replace(v[0],v[1])
 			elif v!= None and type(v)==dict:
 				key = list(v.keys())[0]
-				log="\tvalue = pick_value('{file_path}','{column_name}')\n".format(file_path=v[key][0],column_name=v[key][1])
+				log="\tvalue = pick_value('{file_path}','{sheet_name}','{column_name}',{range})\n".format(file_path=v[key][0],sheet_name=v[key][1],column_name=v[key][2],range=v[key][3])
 				logs[i]=log+logs[i].replace(key,'value').replace("'", '')
 
 		assert len(indexes)==len(logs)
@@ -62,6 +82,17 @@ class Parameterise(object):
 		indexes = []
 		logs = []
 
+	def fetch_value_from_file(self,file_name, sheet_name, column_name, data_range):
+		import pandas as pd
+		try:
+			df = pd.read_excel(file_name, index_col=0, sheetname=sheet_name)
+			column=df[column_name][data_range[0]:data_range[1]+1].tolist()
+			assert len(column)!=0
+			print(column)
+			return column[0]
+		except Exception as e:
+			print(str(e))
+
 if __name__ == '__main__':
-	Parameterise(script_file_name, script_keyword, script_new_filename)
-	# Parameterise(log_file_name, log_keyword, log_new_filename)
+	# Parameterise(script_file_name, script_keyword, script_new_filename)
+	Parameterise(log_file_name, log_keyword, log_new_filename)

@@ -11,11 +11,14 @@ class ScriptMaker(object):
 	kwargs2 = "kwargs2 = {'forceviewserveruse': False, 'useuiautomatorhelper': False, 'ignoreuiautomatorkilled': True, 'autodump': False, 'debug': {}, 'startviewserver': True, 'compresseddump': True}\n"
 	set_up_viewclient = 'vc = ViewClient(device, serialno, **kwargs2)\n\n'
 
-	utility_function = """def pick_value(file_name, column_name):
-\tdf = pd.read_excel(file_name, index_col=0)
-\tcolumn=df[column_name].tolist()
-\tassert len(column)!=0
-\treturn column[0]\n"""
+	utility_function = """def pick_value(file_name, sheet_name, column_name, data_range):
+\ttry:
+\t\tdf = pd.read_excel(file_name, index_col=0, sheetname=sheet_name)
+\t\tcolumn=df[column_name][data_range[0]:data_range[1]+1].tolist()
+\t\tassert len(column)!=0
+\t\treturn column[0]
+\texcept Exception as e:
+\t\tprint(str(e))\n"""
 	
 	dump = 'try:\n\tvc.dump(window = -1)\nexcept Exception as e:\n\tpass\n'
 

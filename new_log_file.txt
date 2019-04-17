@@ -1,7 +1,7 @@
 #SCENARIO: a
 #STEP: a
 #LOG(android.widget.Button): Clicked on element with text : '7'
-#LOG(android.widget.Button): Clicked on element with text : 'ADD TIMESHEET'
+#LOG(android.widget.Button): Clicked on element with text : '0.2'
 #LOG(android.widget.Button): Clicked on element with text : 'RESET'
 #LOG(android.view.View): Clicked on element with Text : 'Select Daystatus'
 #LOG(android.widget.RadioButton): Clicked on element with text : 'Absent'

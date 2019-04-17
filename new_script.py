@@ -6,10 +6,14 @@ from com.dtmilano.android.viewclient import ViewClient
 from logger import logger
 import pandas as pd
 
-def pick_value(file_name, column_name):
-	df = pd.read_excel(file_name, index_col=0)
-	assert len(df[column_name].tolist())!=0
-	return df[column_name].tolist()[0]
+def read_value(self,file_name, sheet_name, column_name, data_range):
+	try:
+		df = pd.read_excel(file_name, index_col=0, sheetname=sheet_name)
+		column=df[column_name][data_range[0]:data_range[1]+1].tolist()
+		assert len(column)!=0
+		return column[0]
+	except Exception as e:
+		print(str(e))
 
 import time
 start_time = int(time.time())
@@ -65,7 +69,7 @@ except Exception as e:
 	pass
 
 try:
-	value = pick_value("/media/gn/Work/AQM/PY_RepV2.0/logsample.xlsx")
+	value = pick_value('/media/gn/Work/AQM/PY_RepV2.0/logsample.xlsx','Data','Petal_width',[0, 5])
 	vc.findViewWithTextOrRaise(value).touch()
 	vc.sleep(3)
 except Exception as e: 
