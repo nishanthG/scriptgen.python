@@ -4,9 +4,9 @@ import os
 import time
 from com.dtmilano.android.viewclient import ViewClient
 from logger import logger
-import pandas as pd
+# import pandas as pd
 
-def read_value(self,file_name, sheet_name, column_name, data_range):
+def pick_value(file_name, sheet_name, column_name, data_range):
 	try:
 		df = pd.read_excel(file_name, index_col=0, sheetname=sheet_name)
 		column=df[column_name][data_range[0]:data_range[1]+1].tolist()
@@ -29,6 +29,7 @@ device, serialno = ViewClient.connectToDeviceOrExit(**kwargs1)
 kwargs2 = {'forceviewserveruse': False, 'useuiautomatorhelper': False, 'ignoreuiautomatorkilled': True, 'autodump': False, 'debug': {}, 'startviewserver': True, 'compresseddump': True}
 vc = ViewClient(device, serialno, **kwargs2)
 
+filename = 'Trial_1'
 try:
 	vc.dump(window = -1)
 except Exception as e:
@@ -59,7 +60,7 @@ start = int(time.time())
 flag=1
 
 try:
-	vc.findViewWithTextOrRaise('3').touch()
+	vc.findViewWithTextOrRaise('December 2018 arrow dropright').touch()
 	vc.sleep(3)
 except Exception as e: 
 	exception.append(str(e))
@@ -67,6 +68,40 @@ try:
 	vc.dump(window = -1)
 except Exception as e:
 	pass
+
+try:
+	vc.findViewWithTextOrRaise('2').touch()
+	vc.sleep(3)
+except Exception as e: 
+	exception.append(str(e))
+try:
+	vc.dump(window = -1)
+except Exception as e:
+	pass
+
+
+end = int(time.time())
+
+try:
+	total = end - start
+	time_result.append(total)
+
+except NameError as e:
+	pass
+
+if flag==0:
+	pass
+
+elif len(exception) > 0:
+	step_results.append("Failed")
+	exception_result.append(exception)
+	exception = []
+
+else:
+	step_results.append("Passed")
+	exception_result.append("None")
+start = int(time.time())
+flag=1
 
 try:
 	vc.findViewWithTextOrRaise('ADD TIMESHEET').touch()
@@ -77,6 +112,83 @@ try:
 	vc.dump(window = -1)
 except Exception as e:
 	pass
+
+
+end = int(time.time())
+
+try:
+	total = end - start
+	time_result.append(total)
+
+except NameError as e:
+	pass
+
+if flag==0:
+	pass
+
+elif len(exception) > 0:
+	step_results.append("Failed")
+	exception_result.append(exception)
+	exception = []
+
+else:
+	step_results.append("Passed")
+	exception_result.append("None")
+start = int(time.time())
+flag=1
+
+try:
+	vc.findViewWithTextOrRaise('Select Daystatus').touch()
+except Exception as e: 
+	exception.append(str(e))
+try:
+	vc.dump(window = -1)
+except Exception as e:
+	pass
+
+try:
+	vc.findViewWithTextOrRaise('WeeklyOffWorking').touch()
+	vc.sleep(3)
+except Exception as e: 
+	exception.append(str(e))
+try:
+	vc.dump(window = -1)
+except Exception as e:
+	pass
+
+try:
+	vc.findViewWithTextOrRaise('OK').touch()
+	vc.sleep(3)
+except Exception as e: 
+	exception.append(str(e))
+try:
+	vc.dump(window = -1)
+except Exception as e:
+	pass
+
+
+end = int(time.time())
+
+try:
+	total = end - start
+	time_result.append(total)
+
+except NameError as e:
+	pass
+
+if flag==0:
+	pass
+
+elif len(exception) > 0:
+	step_results.append("Failed")
+	exception_result.append(exception)
+	exception = []
+
+else:
+	step_results.append("Passed")
+	exception_result.append("None")
+start = int(time.time())
+flag=1
 
 try:
 	vc.findViewWithTextOrRaise('RESET').touch()
@@ -89,7 +201,7 @@ except Exception as e:
 	pass
 
 try:
-	vc.findViewWithTextOrRaise('Select Daystatus').touch()
+	vc.findViewByIdOrRaise('dayStatus').touch()
 except Exception as e: 
 	exception.append(str(e))
 try:
@@ -98,36 +210,7 @@ except Exception as e:
 	pass
 
 try:
-	vc.findViewWithTextOrRaise('HalfDayWorking').touch()
-	vc.sleep(3)
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
-
-try:
-	vc.findViewWithTextOrRaise('OK').touch()
-	vc.sleep(3)
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
-
-try:
-	vc.findViewWithTextOrRaise('Select Client').touch()
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
-
-try:
-	vc.findViewWithTextOrRaise('National Stock Exchange of India').touch()
+	vc.findViewWithTextOrRaise('WeeklyOff').touch()
 	vc.sleep(3)
 except Exception as e: 
 	exception.append(str(e))
@@ -171,16 +254,7 @@ start = int(time.time())
 flag=1
 
 try:
-	vc.findViewWithTextOrRaise('Select Project').touch()
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
-
-try:
-	vc.findViewWithTextOrRaise('NSE Now 2.0').touch()
+	vc.findViewWithTextOrRaise('arrow back').touch()
 	vc.sleep(3)
 except Exception as e: 
 	exception.append(str(e))
@@ -190,50 +264,7 @@ except Exception as e:
 	pass
 
 try:
-	vc.findViewWithTextOrRaise('OK').touch()
-	vc.sleep(3)
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
-
-
-end = int(time.time())
-
-try:
-	total = end - start
-	time_result.append(total)
-
-except NameError as e:
-	pass
-
-if flag==0:
-	pass
-
-elif len(exception) > 0:
-	step_results.append("Failed")
-	exception_result.append(exception)
-	exception = []
-
-else:
-	step_results.append("Passed")
-	exception_result.append("None")
-start = int(time.time())
-flag=1
-
-try:
-	vc.findViewWithTextOrRaise('Select Module').touch()
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
-
-try:
-	vc.findViewWithTextOrRaise('NSE Now 2.0 - General').touch()
+	vc.findViewWithTextOrRaise('arrow back').touch()
 	vc.sleep(3)
 except Exception as e: 
 	exception.append(str(e))
@@ -243,7 +274,7 @@ except Exception as e:
 	pass
 
 try:
-	vc.findViewWithTextOrRaise('OK').touch()
+	vc.findViewWithTextOrRaise('arrow back').touch()
 	vc.sleep(3)
 except Exception as e: 
 	exception.append(str(e))
@@ -276,114 +307,8 @@ else:
 start = int(time.time())
 flag=1
 
-try:
-	vc.findViewWithTextOrRaise('Select Taskgroup').touch()
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
+logger(filename).generate_log()
 
-try:
-	vc.findViewWithTextOrRaise('Automation Testing').touch()
-	vc.sleep(3)
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
+logger(filename).add_test_info(Passed=step_results.count("Passed"), Failed=step_results.count("Failed"))
 
-try:
-	vc.findViewWithTextOrRaise('OK').touch()
-	vc.sleep(3)
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
-
-
-end = int(time.time())
-
-try:
-	total = end - start
-	time_result.append(total)
-
-except NameError as e:
-	pass
-
-if flag==0:
-	pass
-
-elif len(exception) > 0:
-	step_results.append("Failed")
-	exception_result.append(exception)
-	exception = []
-
-else:
-	step_results.append("Passed")
-	exception_result.append("None")
-start = int(time.time())
-flag=1
-
-try:
-	vc.findViewWithTextOrRaise('Select Task').touch()
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
-
-try:
-	vc.findViewWithTextOrRaise('Test Script Creation').touch()
-	vc.sleep(3)
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
-
-try:
-	vc.findViewWithTextOrRaise('OK').touch()
-	vc.sleep(3)
-except Exception as e: 
-	exception.append(str(e))
-try:
-	vc.dump(window = -1)
-except Exception as e:
-	pass
-
-
-end = int(time.time())
-
-try:
-	total = end - start
-	time_result.append(total)
-
-except NameError as e:
-	pass
-
-if flag==0:
-	pass
-
-elif len(exception) > 0:
-	step_results.append("Failed")
-	exception_result.append(exception)
-	exception = []
-
-else:
-	step_results.append("Passed")
-	exception_result.append("None")
-start = int(time.time())
-flag=1
-
-logger().generate_log()
-
-logger().add_test_info(Passed=step_results.count("Passed"), Failed=step_results.count("Failed"))
-
-logger().final_sequence(start_time,step_results,exception_result,time_result)
+logger(filename).final_sequence(start_time,step_results,exception_result,time_result)

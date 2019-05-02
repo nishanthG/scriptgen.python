@@ -1,0 +1,3 @@
+#SCENARIO: A
+#STEP: B
+#LOG(Vulnerable): Vulnerable/Unstable field on co-ordinates (363,1068)

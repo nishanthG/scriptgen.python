@@ -2,13 +2,13 @@ import Tkinter
 from Tkinter import *
 from PIL import ImageTk, Image
 from layout import UIDump
-from bound_factory import Divide_and_Conquer
+from Event_Listener import Sniffer
 from Replicator import Replicator
-from ScreenShot import Screenshot
+from Device import Device
 
 class AQMdroid(object):
 
-	def __init__(self, img_path, img_dim):
+	def __init__(self, img_path, img_dim, filename):
 		""" initializes the device screen settings."""
 		super(AQMdroid, self).__init__()
 		
@@ -23,15 +23,15 @@ class AQMdroid(object):
 		self.img_path = img_path
 		self.img_dim = img_dim
 		self.curr_screen_bounds = UIDump().get_ui_dump()
+		self.filename = filename
 		self.launch()
 
 	def close_Button(self):
 		self.window.destroy()
-		# Screenshot().clear_image_cache()
-		Screenshot().capture_screenshot()
-		width, height = Screenshot().get_screen_resolution() 
-		resolution = (width, height)
-		droid = AQMdroid('image.png', resolution)
+
+		Device().capture_screenshot()
+		droid = AQMdroid(self.img_path, self.img_dim, self.filename)
+		
 		try:
 			droid.getorigin()
 		except Exception as e:
@@ -43,10 +43,10 @@ class AQMdroid(object):
 	      x = eventorigin.x*3
 	      y = eventorigin.y*3
 
-	      Divide_and_Conquer(list((x,y))).bounds_Compare(self.curr_screen_bounds)
+	      Sniffer(list((x,y))).bounds_Compare(self.curr_screen_bounds, self.filename)
 	      Replicator(list((x,y))).replicate()
 	      import time
-	      time.sleep(1)
+	      time.sleep(2)
 	      self.close_Button()
 
 	def load_screen(self, image_path, image_dimension):

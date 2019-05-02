@@ -1,24 +1,26 @@
-script_file_name = 'script.py'
-log_file_name = 'log_file.txt'
+# script_file_name = 'script.py'
+# log_file_name = 'log_file.txt'
 
-script_keyword = 'vc.findViewWith'
-log_keyword = '#LOG'
+# script_keyword = 'vc.findViewWith'
+# log_keyword = '#LOG'
 
-script_new_filename = 'new_script.py'
-log_new_filename = 'new_log_file.txt'
+# script_new_filename = 'new_script.py'
+# log_new_filename = 'new_log_file.txt'
 
 lines = []
 indexes = []
 logs = []
 
-GUI_list = [('3','7'),{'ADD TIMESHEET':['/media/gn/Work/AQM/PY_RepV2.0/Iris.xls','Data','Petal_width',[0,5]]},None,None,('HalfDayWorking','Absent'),None,None,('National Stock Exchange of India','Aditya Birla'),None,None,('NSE Now 2.0','Aditya Birla New'),None,None,None,None,None,('Automation Testing','Manual Testing'),None,None,('Test Script Creation','Manual'),None]
+# GUI_list = [('3','7'),{'ADD TIMESHEET':['/media/gn/Work/AQM/PY_RepV2.0/Iris.xls','Data','Petal_width',[0,5]]},None,None,('HalfDayWorking','Absent'),None,None,('National Stock Exchange of India','Aditya Birla'),None,None,('NSE Now 2.0','Aditya Birla New'),None,None,None,None,None,('Automation Testing','Manual Testing'),None,None,('Test Script Creation','Manual'),None]
 # GUI_list = [('3','7'),None,None,None,('HalfDayWorking','Absent'),None,None,('National Stock Exchange of India','Aditya Birla'),None,None,('NSE Now 2.0','Aditya Birla New'),None,None,None,None,None,('Automation Testing','Manual Testing'),None,None,('Test Script Creation','Manual'),None]
 
 class Parameterise(object):
 	"""docstring for Parameterise"""
-	def __init__(self, old_filename, keyword, new_filename):
+	def __init__(self, old_filename, keyword, new_filename, GUI_list):
 		super(Parameterise, self).__init__()
-		self.read_file(old_filename, keyword, new_filename)
+		print(old_filename.encode('ascii','ignore').replace('txt','py'), keyword, new_filename)
+		self.GUI_list = GUI_list
+		# self.read_file(old_filename.encode('ascii','ignore').replace('txt','py'), keyword, new_filename)
 		
 	def read_file(self,old_filename, keyword, new_filename):
 		with open(old_filename, 'r') as file:
@@ -42,8 +44,8 @@ class Parameterise(object):
 			self.replace_values(new_filename)
 
 	def replace_value(self, new_filename):
-		assert len(indexes)==len(GUI_list)
-		for i,v in enumerate(GUI_list):
+		assert len(indexes)==len(self.GUI_list)
+		for i,v in enumerate(self.GUI_list):
 			if v!= None and type(v)==tuple:
 				logs[i]=logs[i].replace(v[0],v[1])
 			elif v!= None and type(v)==dict:
@@ -55,8 +57,8 @@ class Parameterise(object):
 		self.rebuild_file(new_filename)
 
 	def replace_values(self, new_filename):
-		assert len(indexes)==len(GUI_list)
-		for i,v in enumerate(GUI_list):
+		assert len(indexes)==len(self.GUI_list)
+		for i,v in enumerate(self.GUI_list):
 			if v!= None and type(v)==tuple:
 				logs[i]=logs[i].replace(v[0],v[1])
 			elif v!= None and type(v)==dict:

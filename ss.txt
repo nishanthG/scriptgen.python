@@ -1,0 +1,5 @@
+#SCENARIO: a
+#STEP: b
+#LOG(android.widget.EditText): Cleared and Typed : 'aaa'
+#LOG(android.widget.EditText): Cleared and Typed : 'aaa'
+#LOG(android.widget.Button): Clicked on element with text : 'LOG IN'

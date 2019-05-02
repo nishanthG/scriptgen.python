@@ -1,0 +1,19 @@
+#SCENARIO: DEMO
+#STEP: A
+#LOG(android.widget.Button): Clicked on element with text : 'December 2018 arrow dropright'
+#LOG(android.widget.Button): Clicked on element with text : '2'
+#STEP: B
+#LOG(android.widget.Button): Clicked on element with text : 'ADD TIMESHEET'
+#STEP: C
+#LOG(android.view.View): Clicked on element with Text : 'Select Daystatus'
+#LOG(android.widget.RadioButton): Clicked on element with text : 'WeeklyOffWorking'
+#LOG(android.widget.Button): Clicked on element with text : 'OK'
+#STEP: D
+#LOG(android.widget.Button): Clicked on element with text : 'RESET'
+#LOG(android.view.View): Clicked on : 'dayStatus'
+#LOG(android.widget.RadioButton): Clicked on element with text : 'WeeklyOff'
+#LOG(android.widget.Button): Clicked on element with text : 'OK'
+#STEP: E
+#LOG(android.widget.Button): Clicked on element with text : 'arrow back'
+#LOG(android.widget.Button): Clicked on element with text : 'arrow back'
+#LOG(android.widget.Button): Clicked on element with text : 'arrow back'

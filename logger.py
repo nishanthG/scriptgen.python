@@ -10,7 +10,7 @@ Similarly, add exceptions and time [third and fourth columns] passing the lists 
 Finally, add footers and execution result.   
 """
 
-class logger(object):
+class Logger(object):
 	"""docstring for logger"""
 	Final_Result = "Passed"
 	
@@ -23,13 +23,14 @@ class logger(object):
 	
 	LOG_TABLE = []
 
-	def __init__(self):
-		super(logger, self).__init__()
+	def __init__(self, filename):
+		super(Logger, self).__init__()
 		self.table_end = "<br></td>"
 		self.title = ""
-	
+		self.filename = filename
+
 	def create_file(self):
-		with open('log.html', 'w+') as log_file:
+		with open(self.filename+'.html', 'w+') as log_file:
 			log_file.close()
 
 	def initialize_log_file(self, title):
@@ -86,7 +87,7 @@ class logger(object):
 	def add_step_data(self, step_number, step_name, step_lines):
 		step_name = "<B><u>Step Number - {number}</u>&nbsp;&nbsp;<i><Font Color = /'#00008B/'> Executing : {step_name} <br></Font></i></B><br/>\n".format(number=step_number,step_name=step_name)
 
-		with open('log.html', 'a') as log_file:
+		with open(self.filename+'.html', 'a') as log_file:
 			log_file.write(step_name)
 			log_file.write("".join(step_lines))
 			log_file.write("<br><br>")
@@ -105,7 +106,7 @@ class logger(object):
 			execution_result.append("<br>"*(self.spacing[index]/2)+str(value)+"<br>"*(self.spacing[index]/2 + 1))
 
 		execution_result = "<td align='center'>{time}</td>\n".format(time="".join(execution_result))
-		with open('log.html', 'a') as log_file:
+		with open(self.filename+'.html', 'a') as log_file:
 			log_file.write(execution_result)
 			log_file.close()
 
@@ -120,7 +121,7 @@ class logger(object):
 				exception_.append("<br>"*(self.spacing[index]/2)+ str(st) +"<br>"*(self.spacing[index]/2 - len(st)/2 +1))
 
 		exception_result = "<td align='center'>{exception}</td>\n".format(exception="".join(exception_))
-		with open('log.html', 'a') as log_file:
+		with open(self.filename+'.html', 'a') as log_file:
 			log_file.write("</td>")
 			log_file.write(exception_result)
 			log_file.close()		
@@ -132,13 +133,13 @@ class logger(object):
 			execution_times.append("<br>"*(self.spacing[index]/2)+str(time) +"<br>"*(self.spacing[index]/2 + 1))
 
 		exception_time = "<td align='center'>{time}</td>\n".format(time="".join(execution_times))
-		with open('log.html', 'a') as log_file:
+		with open(self.filename+'.html', 'a') as log_file:
 			log_file.write(self.table_end)
 			log_file.write(exception_time)
 			log_file.close()
 
 	def write_to_LOG(self):
-		with open('log.html', 'a') as log_file:
+		with open(self.filename+'.html', 'a') as log_file:
 			for element in self.LOG_TABLE:
 				log_file.write(element)
 			log_file.close()
@@ -166,16 +167,16 @@ class logger(object):
 		footer_time = "<h3><B>Scenario Description: Execution Completed in '{total_time}' seconds.</h3></B>\n".format(total_time=int(time.time()) - start_time)
 		Scenario_result = "<h2><B>[ Scenario :::: '{result}' ]</h2></B></Br>\n".format(title=self.title, result=self.Final_Result)
 		
-		with open('log.html','a') as log_file:
+		with open(self.filename+'.html','a') as log_file:
 			log_file.write(footer_time)
 			log_file.write(Scenario_result)
 			log_file.close()
 		print("Log Generated.")
 
 	def generate_log(self):
-		log_instance = logger()
+		log_instance = Logger(self.filename)
 		
-		with open('new_log_file.txt','r') as log_file:
+		with open(self.filename+'.txt','r') as log_file:
 			for log in log_file:
 				if "SCENARIO" in log:
 					log_instance.initialize_log_file(log.split(':', 1)[1].strip())
@@ -197,5 +198,5 @@ class logger(object):
 		self.spacing.append(len(self.log_steps) + 4)
 
 if __name__ == '__main__':
-	log = logger()
+	log = Logger()
 	log.generate_log()
