@@ -4,9 +4,10 @@ class Script_Tweaks(object):
 	field_indexes =[]
 	
 	"""docstring for Script_Tweaks"""
-	def __init__(self, script_filename, element_type, element_id, element_value, at_position, element_value_ET = None, change_script = True):
+	def __init__(self):
 		super(Script_Tweaks, self).__init__()
 		
+	def append(self, script_filename, element_type, element_id, element_value, at_position, element_value_ET = None, change_script = True):
 		self.script_filename = script_filename
 		self.element_type = element_type
 		self.element_id = element_id
@@ -20,10 +21,41 @@ class Script_Tweaks(object):
 		else:
 			self.update_log()
 
-	def make_element(self, element_type, element_id,element_value,element_value_ET): 
+	def pop(self, script_filename, position, is_script = True):
+		self.script_filename = script_filename
+
+		if is_script:
+			self.delete_element_script(position)
+		else:
+			self.delete_element_log(position)
+
+		self.remake_script()
+
+	def delete_element_log(self, position):
+		self.read_script(keyword = 'LOG')
+		# print(self.script_data[self.field_indexes[position-1]])
+		self.script_data.remove(self.script_data[self.field_indexes[position-1]])
+
+	def delete_element_script(self, position):
+		self.read_script(keyword = 'vc.find')
+	
+		self.script_data.remove(self.script_data[self.field_indexes[position-1]])
+		
+		del_log = []
+		for index,log in enumerate(self.script_data[self.field_indexes[position-1] - 2 : self.field_indexes[position-1] + 9], int(self.field_indexes[position-1] - 2)):
+			
+			if '\tpass\n' not in log:
+				del_log.append(index)
+			else:
+				del_log.append(index)
+				break
+		
+		del self.script_data[del_log[0] : del_log[len(del_log) -1]+1]
+
+	def make_element(self, element_type, element_id, element_value,element_value_ET): 
 		if element_type in ['Button','Spinner', 'View']:
 			if element_id == 'id':
-				return '''vc.findViewByIdOrRaise("{element_value}").touch()'''.format(element_value = element_value)
+				return '''vc.findViewByIdOrRaise("{element_value}").touch()'''.	format(element_value = element_value)
 			elif element_id == 'text':
 				return '''vc.findViewWithTextOrRaise("{element_value}").touch()'''.format(element_value = element_value)
 		
@@ -42,16 +74,25 @@ class Script_Tweaks(object):
 					self.fields.append(line)
 					self.field_indexes.append(index)
 
-		print(*zip(self.field_indexes, self.fields))
 
 	def append_element_script(self, new_field, at_position):
-		index = self.field_indexes[at_position-1]
-		self.script_data.insert(index-2, new_field)
+		if at_position in range(len(self.fields)):
+			index = self.field_indexes[at_position - 1]
+			self.script_data.insert(index-2, new_field)
+		else:
+			index = self.field_indexes[-1]
+			self.script_data.insert(index+8, new_field)
+		
 		self.remake_script()
 
 	def append_element_log(self, new_log, at_position):
-		index = self.field_indexes[at_position -1]
-		self.script_data.insert(index, new_log)
+		if at_position in range(len(self.fields)):
+			index = self.field_indexes[at_position -1]
+			self.script_data.insert(index, new_log)
+		else:
+			index = self.field_indexes[-1]
+			self.script_data.insert(index +1, '\n'+new_log)
+		
 		self.remake_script()
 
 	def remake_script(self):
@@ -63,29 +104,28 @@ class Script_Tweaks(object):
 \tvc.sleep(3)
 except Exception as e:
 \texception.append(str(e))
-\tpass
 try:
 \tvc.dump(window = -1)
 except Exception as e:
 \tpass\n\n'''.format(script_line=self.element)
-
+		print("element added : ", self.element)
 		self.append_element_script(string, self.at_position)
 
 	def log_to_add(self):
 		if self.element_type in ['Button', 'RadioButton', 'View']:
 			line = "#LOG(android.widget.{type}): Clicked on element with text : '{text}'\n".format(type=self.element_type,text=self.element_value)
 			self.append_element_log(line, self.at_position)
-			print('log to add : ', line)
+			print('log added : ', line)
 		
 		elif self.element_type == 'EditText':
 			line = "#LOG(android.widget.EditText): Cleared and Typed : '{text}'\n".format(text=self.element_value_ET)
 			self.append_element_log(line, self.at_position)
-			print('log to add : ', line)
+			print('log added : ', line)
 		
 		elif self.element_type == 'Spinner':
 			line = "LOG(android.widget.Spinner): Selected element with value : '{text}'\n".format(text=self.element_value)
 			self.append_element_log(line, self.at_position)
-			print('log to add : ', line)
+			print('log added : ', line)
 
 	def update_script(self):
 		self.read_script(keyword = 'vc.find')
@@ -104,5 +144,11 @@ except Exception as e:
 		self.fields.clear()
 		self.field_indexes.clear()
 
-Script_Tweaks('new_log_file.txt', 'EditText', 'text', 'Login', 3, change_script = False, element_value_ET = "Nishanth")
-# Script_Tweaks('new_script.py', 'EditText', 'text', 'Login', 3, element_value_ET = "Nishanth")
+	def delete_element(self, position):
+		index = self.field_indexes[position-1]
+		print('element to be pop : ',self.script_data[index])
+
+# Script_Tweaks().append('new_log_file.txt', 'EditText', 'text', 'Login', 3, change_script = False, element_value_ET = "Nishanth")
+# Script_Tweaks().append('new_script.py', 'EditText', 'text', 'Login', 3, element_value_ET = "Nishanth")
+# Script_Tweaks().pop('new_script.py', 3)
+Script_Tweaks().pop('new_log_file.txt', 3, is_script=False)
