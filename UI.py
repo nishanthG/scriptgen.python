@@ -1,8 +1,9 @@
-import Tkinter 
-import Tkconstants, tkFileDialog
-import tkMessageBox
-from Tkinter import *
-import Tix as tk
+import tkinter 
+import tkinter.filedialog
+import tkinter.messagebox
+from tkinter import *
+import tkinter.tix as tk
+from Script_tweaker import Script_Tweaks
 
 class GUI():
 	GUI_List, widgets, class_text, text, text_value, values, files, steps, entry_list, log_line = ([] for _ in range(10))
@@ -35,7 +36,7 @@ class GUI():
 		self.parse_logs()
 
 	def file_picker(self,r):
-		print r
+		# print r
 		global row
 		row = r
 		global window_
@@ -144,7 +145,7 @@ class GUI():
 		widget_ = Label(sw.window,width=5)
 		widget_.pack(side="left")
   		
-  		createWidgetButton_ = Button(sw.window, width=20,text="Reset",command=self.reset_feilds)
+		createWidgetButton_ = Button(sw.window, width=20,text="Reset",command=self.reset_feilds)
 		createWidgetButton_.pack(side="left",)
 		widget_ = Label(sw.window,width=5)
 		widget_.pack(side="left")
@@ -161,7 +162,7 @@ class GUI():
 		widget_ = Label(sw.window,width=5)
 		widget_.pack(side="left")
 
-	  	createWidgetButton_3 = Button(sw.window, width=20,text="Generate Script", command=self.script_name_popup)
+		createWidgetButton_3 = Button(sw.window, width=20,text="Generate Script", command=self.script_name_popup)
 
 		createWidgetButton_3.pack(side="left")
 		widget_ = Label(sw.window,width=5)
@@ -243,53 +244,13 @@ class GUI():
 		root.mainloop()
 	
 	def new_element_info(self):
-		file1_content = open(self.filename,'r').read().splitlines()
-		global log_count
-		log_count=-1
-
-		for new_line in file1_content:
-			self.log_line.append(new_line)
-			if 'LOG' in new_line:
-				log_count+=1
-
-		file1_content_w = open(self.filename,'r').read().splitlines()
-		temp = int(Element_Position.get()) - 1
-		tempry = clname.get()
-		j=-1
-		i=-1
+		position = int(Element_Position.get())
+		element_type = clname.get()
+		element_id = identifier.get()
+		element_value = Element_value.get()
 		
-		for x in file1_content_w:
-			j+=1
-			if 'LOG' in x:
-				i+=1
-				if i == temp :
-					if tempry == 'Button':
-						aline="#" + "LOG(android.widget.Button): Clicked on element with text : '"+Element_value.get()+"'"
-						self.log_line.insert(j,aline)
-
-					elif tempry == 'EditText':
-						aline="#" +"LOG(android.widget.EditText): Cleared and Typed : '"+Element_value.get()+"'"
-						self.log_line.insert(j,aline)
-					
-					elif tempry == 'Spinner':
-						aline="#" + "LOG(android.widget.Spinner): Selected with value : '"+Element_value.get()+"'"
-						self.log_line.insert(j,aline)
-				
-				elif temp>log_count:
-					if tempry == 'Button':
-						aline="#" + "LOG(android.widget.Button): Clicked on element with text : '"+Element_value.get()+"'"
-						self.log_line.insert(len(self.log_line),aline)
-
-					elif tempry == 'EditText':
-						aline="#" +"LOG(android.widget.EditText): Cleared and Typed : '"+Element_value.get()+"'"
-						self.log_line.insert(len(self.log_line),aline)
-					
-					elif tempry == 'Spinner':
-						aline="#" + "LOG(android.widget.Spinner): Selected with value : '"+Element_value.get()+"'"
-						self.log_line.insert(len(self.log_line),aline)
-					break
-					
-		self.rearange_data()
+		Script_Tweaks().append(self.filename, element_type, element_id, element_value, position)
+		Script_Tweaks().append(self.filename, element_type, element_id, element_value, position, change_script = False)
 		
 		root.destroy()
 		app.destroy()
@@ -398,7 +359,7 @@ class GUI():
 			else:
 				self.GUI_List[index] = None
 		
-		print self.GUI_List
+		# print self.GUI_List
 		
 		from Script_Parameterization import Parameterise
 		script_keyword = 'vc.findViewWith'
@@ -423,9 +384,9 @@ class GUI():
 	def rearange_data(self):
 		import os
 		os.remove(self.filename)
-		print 'file deleated'
+		print('file deleated')
 
-		print self.log_line
+		print(self.log_line)
 		print("creating file :"+ self.filename)
 		
 		with open(self.filename,'w') as file1_content_w: 
